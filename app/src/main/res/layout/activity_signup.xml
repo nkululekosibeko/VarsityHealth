@@ -32,11 +32,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="650dp"
+        android:layout_marginBottom="4dp"
         android:orientation="vertical"
         android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Spinner
+            android:id="@+id/signup_role"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/edittext_background"
+            android:padding="8dp"
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:id="@+id/disp1"
@@ -44,103 +55,103 @@
             android:layout_height="wrap_content"
             android:text="Full Name"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/fullname_singup"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
+            android:layout_height="45dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="Big Smile"
+            android:inputType="textPersonName"
             android:padding="12dp"
             android:textColor="#707070"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:background="@drawable/edittext_background"
-            android:inputType="textPersonName"
-            android:hint="Big Smile" />
+            android:textSize="18sp" />
 
 
         <TextView
             android:id="@+id/disp2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="Email"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/email_signup"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
+            android:layout_height="45dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="varcityhealth@gmail.com"
+            android:inputType="textPersonName"
             android:padding="12dp"
             android:textColor="#707070"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:background="@drawable/edittext_background"
-            android:inputType="textPersonName"
-            android:hint="varcityhealth@gmail.com" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/disp3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:text="Create Password"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/signup_password"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
+            android:layout_height="45dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="*******"
+            android:inputType="textPassword"
             android:padding="12dp"
             android:textColor="#707070"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:background="@drawable/edittext_background"
-            android:inputType="textPersonName"
-            android:hint="*******" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/disp4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Confirm Password"
-            android:layout_marginTop="32dp"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/signup_conf_pass"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18sp"
+            android:layout_height="45dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:hint="*******"
+            android:inputType="textPassword"
             android:padding="12dp"
             android:textColor="#707070"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:background="@drawable/edittext_background"
-            android:inputType="textPersonName"
-            android:hint="*******" />
+            android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signup_button"
+            style="@android:style/Widget.Button"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/button_backbackground"
-            style="@android:style/Widget.Button"
+            android:text="Sign Up"
             android:textColor="#ffffff"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:text="Sign Up" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
