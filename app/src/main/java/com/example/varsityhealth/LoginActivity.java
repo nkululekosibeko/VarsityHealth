@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,9 @@ public class LoginActivity extends AppCompatActivity {
     // Text Edits
     EditText logIn_email, logInPass;
 
+    //Text View
+    TextView signupRedirectText;
+
     FirebaseAuth mAuth;
 
     @Override
@@ -45,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         logIn_email = findViewById(R.id.login_email);
         logInPass = findViewById(R.id.login_pass);
 
+        signupRedirectText = findViewById(R.id.signup_redirect);
+
         // Button
         login_btn = findViewById(R.id.login_btn);
 
@@ -56,6 +62,11 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 checkUser();
             }
+        });
+
+        signupRedirectText.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
         });
 
         // Handle system bars insets

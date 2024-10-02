@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,9 @@ public class SignupActivity extends AppCompatActivity {
 
     // Role Spinner
     Spinner roleSpinner;
+
+    // Text View
+    TextView loginRedirectText;
 
     // Firebase Use
     FirebaseAuth mAuth;
@@ -59,6 +63,7 @@ public class SignupActivity extends AppCompatActivity {
         email_signUp = findViewById(R.id.email_signup);
         pass_signUp = findViewById(R.id.signup_password);
         passConf_signUp = findViewById(R.id.signup_conf_pass);
+        loginRedirectText = findViewById(R.id.login_redirect);
 
         // Role Picker
         roleSpinner = findViewById(R.id.signup_role);
@@ -98,6 +103,12 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, "Signup failed. Please try again.", Toast.LENGTH_SHORT).show();
                         }
                     });
+        });
+
+        // Redirect to login screen
+        loginRedirectText.setOnClickListener(v -> {
+            Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 
