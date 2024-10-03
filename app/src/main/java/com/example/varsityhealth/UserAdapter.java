@@ -4,50 +4,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
-public class UserAdapter {
-    private List<Appointment> appointmentList;
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    public AppointmentAdapter(List<Appointment> appointmentList) {
-        this.appointmentList = appointmentList;
+    private List<UserProfileInfo> userList;
+
+    public UserAdapter(List<UserProfileInfo> userList) {
+        this.userList = userList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_appointment, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Appointment appointment = appointmentList.get(position);
-        holder.dateTextView.setText("Date: " + appointment.getDate());
-        holder.timeTextView.setText("Time: " + appointment.getTime());
-        holder.reasonTextView.setText("Reason: " + appointment.getReason());
+        UserProfileInfo user = userList.get(position);
+        holder.nameTextView.setText("Name: " + user.getFull_name());
+        holder.emailTextView.setText("Email: " + user.getEmail());
     }
 
     @Override
     public int getItemCount() {
-        return appointmentList.size();
+        return userList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView dateTextView, timeTextView, reasonTextView;
-        CardView cardView;
+        TextView nameTextView, emailTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            dateTextView = itemView.findViewById(R.id.dateTextView);
-            timeTextView = itemView.findViewById(R.id.timeTextView);
-            reasonTextView = itemView.findViewById(R.id.reasonTextView);
-            cardView = itemView.findViewById(R.id.cardView);
+            nameTextView = itemView.findViewById(R.id.nameTextView);
+            emailTextView = itemView.findViewById(R.id.emailTextView);
         }
     }
 }

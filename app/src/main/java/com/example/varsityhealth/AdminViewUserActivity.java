@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -52,6 +51,14 @@ public class AdminViewUserActivity extends AppCompatActivity {
 
         // Load users
         loadUsers();
+
+        // Handle edge-to-edge display using WindowInsetsCompat
+        ViewCompat.setOnApplyWindowInsetsListener(recyclerView, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            // Apply padding or margin to ensure RecyclerView does not overlap with system bars
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         ToDashAdmin = findViewById(R.id.back_to_dash_admin);
         // To dash admin button
