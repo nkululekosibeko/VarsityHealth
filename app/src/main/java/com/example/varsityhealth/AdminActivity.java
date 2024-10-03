@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,17 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AdminActivity extends AppCompatActivity {
-
-    // Image Buttons
     LinearLayout ViewUserBookings, ViewExistingUsers;
-
-    // Regular Button
     Button AdminLogout;
-
-    // Dashboard Name
     TextView DashboardName;
-
-    // The Database
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
 
@@ -41,71 +32,63 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        // Image Buttons
+        // Initializing views
         ViewUserBookings = findViewById(R.id.view_appointment_adm);
         ViewExistingUsers = findViewById(R.id.view_users);
-
-        // Logout button
         AdminLogout = findViewById(R.id.signout_btn_adm);
-
-        // Dashboard Name TextView
         DashboardName = findViewById(R.id.dashboard_name);
 
-        // Initialize FirebaseAuth instance
+        // Firebase auth initialization
         auth = FirebaseAuth.getInstance();
+
         if (auth.getCurrentUser() != null) {
             String userId = auth.getCurrentUser().getUid();
-
-            // Initialize Firebase Database reference
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
-
-            // Retrieve and display user's full name from the database
             mDatabase.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         String fullName = dataSnapshot.child("full_name").getValue(String.class);
-                        DashboardName.setText(fullName != null ? fullName : "User");  // Display user's name
+                        DashboardName.setText(fullName != null ? fullName : "Admin User");  // Fallback if full name is null
+                    } else {
+                        DashboardName.setText("Admin User");  // Fallback for missing data
                     }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Handle any errors
+                    // Handle any errors, e.g., logging or showing a message
                 }
             });
         }
 
-        // Set click listeners for the buttons
+        // Navigate to the View Appointments screen
         ViewUserBookings.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, AdminViewAppointmentsActivity.class);
             startActivity(intent);
         });
 
+        // Navigate to the View Users screen
         ViewExistingUsers.setOnClickListener(v -> {
             Intent intent = new Intent(AdminActivity.this, AdminViewUserActivity.class);
             startActivity(intent);
         });
 
+        // Logout and return to Intro screen
         AdminLogout.setOnClickListener(v -> {
+            auth.signOut();  // Sign out from FirebaseAuth
             Intent intent = new Intent(AdminActivity.this, IntroActivity.class);
             startActivity(intent);
-            finish();
+            finish();  // Close AdminActivity
         });
 
-        // Enable edge-to-edge layout
+        // Handle system window insets for full-screen content
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         View rootView = findViewById(R.id.admin_screen);
-
-        // Handle window insets with WindowInsetsControllerCompat
         rootView.setOnApplyWindowInsetsListener((view, windowInsets) -> {
             WindowInsetsCompat insets = WindowInsetsCompat.toWindowInsetsCompat(windowInsets);
-            view.setPadding(
-                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).left,
-                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).top,
-                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).right,
-                    insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-            );
+            Insets systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            view.setPadding(systemInsets.left, systemInsets.top, systemInsets.right, systemInsets.bottom);
             return windowInsets;
         });
     }

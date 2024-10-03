@@ -39,14 +39,10 @@ public class StudentActivity extends AppCompatActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_student);
 
-        // TextView
+        // Initializing views
         DashBoardName = findViewById(R.id.dashboard_name);
-
-        // Layout View
         BookAppointment = findViewById(R.id.book_appointment);
         ViewAppointment = findViewById(R.id.view_appointment_std);
-
-        //Buttons
         StdLogout = findViewById(R.id.signout_btn_std);
 
         // Initialize FirebaseAuth instance
@@ -63,11 +59,9 @@ public class StudentActivity extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         String fullName = dataSnapshot.child("full_name").getValue(String.class);
-                        if (fullName != null) {
-                            DashBoardName.setText(fullName);  // Display user's name
-                        } else {
-                            DashBoardName.setText("User");
-                        }
+                        DashBoardName.setText(fullName != null ? fullName : "Student User");  // Fallback if full name is null
+                    } else {
+                        DashBoardName.setText("Student User");  // Fallback for missing data
                     }
                 }
 
@@ -84,6 +78,7 @@ public class StudentActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // View appointments button
         ViewAppointment.setOnClickListener(v -> {
             Intent intent = new Intent(StudentActivity.this, ViewBookingActivity.class);
             startActivity(intent);
@@ -91,10 +86,10 @@ public class StudentActivity extends AppCompatActivity {
 
         // Logout button
         StdLogout.setOnClickListener(view -> {
-            FirebaseAuth.getInstance().signOut();
+            auth.signOut();  // Sign out from Firebase
             Intent intent = new Intent(StudentActivity.this, IntroActivity.class);
             startActivity(intent);
-            finish();
+            finish();  // Close the StudentActivity
         });
 
         // Handle system bars insets

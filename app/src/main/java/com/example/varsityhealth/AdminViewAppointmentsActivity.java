@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminViewAppointmentsActivity extends AppCompatActivity {
-
-    // Go back to dash Admin
     Button BackToDashAdmin;
     private RecyclerView recyclerView;
     private AppointmentAdapter adapter;

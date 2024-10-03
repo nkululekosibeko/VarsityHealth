@@ -1,6 +1,9 @@
 package com.example.varsityhealth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,52 +27,44 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Buttons
-    Button login_btn;
-
-    // Text Edits
-    EditText logIn_email, logInPass;
-
-    //Text View
-    TextView signupRedirectText;
-
+    Button Login_btn;
+    EditText LogIn_email, LogInPass;
+    TextView SignupRedirectText;
     FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Enable edge-to-edge display
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        // Edit Text
-        logIn_email = findViewById(R.id.login_email);
-        logInPass = findViewById(R.id.login_pass);
+        LogIn_email = findViewById(R.id.login_email);
+        LogInPass = findViewById(R.id.login_pass);
+        SignupRedirectText = findViewById(R.id.signup_redirect);
+        Login_btn = findViewById(R.id.login_btn);
 
-        signupRedirectText = findViewById(R.id.signup_redirect);
-
-        // Button
-        login_btn = findViewById(R.id.login_btn);
-
-        login_btn.setOnClickListener(view -> {
+        Login_btn.setOnClickListener(view -> {
             if (!validateEmail()) {
-                logIn_email.requestFocus();
+                LogIn_email.requestFocus();
             } else if (!validatePassword()) {
-                logInPass.requestFocus();
+                LogInPass.requestFocus();
             } else {
-                checkUser();
+                // Check network connectivity before attempting to authenticate
+                if (isNetworkAvailable()) {
+                    checkUser();
+                } else {
+                    Toast.makeText(LoginActivity.this, "No internet connection. Please check your network and try again.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-        signupRedirectText.setOnClickListener(view -> {
+        SignupRedirectText.setOnClickListener(view -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
         });
 
-        // Handle system bars insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_screen), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -78,39 +73,45 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public Boolean validateEmail() {
-        String val = logIn_email.getText().toString();
+        String val = LogIn_email.getText().toString();
         if (val.isEmpty()) {
-            logIn_email.setError("Email cannot be empty");
+            LogIn_email.setError("Email cannot be empty");
             return false;
         } else {
-            logIn_email.setError(null);
+            LogIn_email.setError(null);
             return true;
         }
     }
 
     public Boolean validatePassword() {
-        String val = logInPass.getText().toString();
+        String val = LogInPass.getText().toString();
         if (val.isEmpty()) {
-            logInPass.setError("Password cannot be empty");
+            LogInPass.setError("Password cannot be empty");
             return false;
         } else {
-            logInPass.setError(null);
+            LogInPass.setError(null);
             return true;
         }
     }
 
-    public void checkUser() {
-        String userEmail = logIn_email.getText().toString().trim();
-        String userPassword = logInPass.getText().toString().trim();
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+            return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+        }
+        return false;
+    }
 
-        // Use Firebase Authentication to sign in
+    public void checkUser() {
+        String userEmail = LogIn_email.getText().toString().trim();
+        String userPassword = LogInPass.getText().toString().trim();
+
         mAuth.signInWithEmailAndPassword(userEmail, userPassword)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign in success, navigate based on role
                         FirebaseUser currentUser = mAuth.getCurrentUser();
                         if (currentUser != null) {
-                            // Fetch user role from Realtime Database
                             fetchUserRole(currentUser.getUid());
                         }
                     } else {
@@ -133,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent = new Intent(LoginActivity.this, StudentActivity.class);
                     }
                     startActivity(intent);
-                    finish();  // Close LoginActivity
+                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "User role not found.", Toast.LENGTH_SHORT).show();
                 }
