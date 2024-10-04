@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VarsityHealth"
         tools:targetApi="31">
+
+<!--        <activity android:name=".AdminViewAppointmentsActivity"></activity>-->
+
         <activity
             android:name=".AdminViewUserActivity"
             android:exported="true" />

@@ -34,6 +34,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.reasonTextView.setText("Reason: " + appointment.getReason());
     }
 
+
     @Override
     public int getItemCount() {
         return appointmentList.size();

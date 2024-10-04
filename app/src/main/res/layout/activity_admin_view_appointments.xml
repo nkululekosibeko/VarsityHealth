@@ -33,16 +33,17 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAppointments"
-        android:layout_width="350dp"
-        android:layout_height="550dp"
-        android:layout_marginTop="92dp"
-        android:clipToPadding="false"
-        android:padding="8dp"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    android:layout_width="350dp"
+    android:layout_height="550dp"
+    android:layout_marginTop="92dp"
+    android:clipToPadding="false"
+    android:padding="8dp"
+    android:scrollbars="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.488"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/back_to_dash_admin"
