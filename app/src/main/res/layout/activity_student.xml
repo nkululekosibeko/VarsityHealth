@@ -60,8 +60,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:layout_marginTop="76dp"
-            android:orientation="vertical">
+            android:layout_marginTop="100dp"
+            android:orientation="vertical"
+            android:paddingTop="100dp">
 
             <!-- Button 1 -->
             <LinearLayout
@@ -79,7 +80,7 @@
                 android:layout_height="64dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/facebook" />
+            app:srcCompat="@drawable/baseline_calendar_month_24" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,7 +108,7 @@
                 android:layout_height="64dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@drawable/google" />
+                app:srcCompat="@drawable/baseline_fact_check_24" />
 
             <TextView
                 android:id="@+id/view_appointment"

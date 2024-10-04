@@ -78,7 +78,7 @@
                     android:layout_height="64dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/facebook" />
+                    app:srcCompat="@drawable/baseline_calendar_month_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                     android:layout_height="64dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="16dp"
-                    app:srcCompat="@drawable/google" />
+                    app:srcCompat="@drawable/baseline_account_box_24" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,6 +131,8 @@
             android:textColor="#ffffff"
             android:textSize="25sp"
             android:textStyle="bold" />
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
