@@ -26,6 +26,7 @@ public class IntroActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //welcome button
 
         btn_getStarted = findViewById(R.id.wlcm_btn);
 
